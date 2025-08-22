@@ -1,0 +1,19 @@
+{
+  "s3": {
+    "bucketName": "hippo1-bucket",
+    "region": "ap-northeast-2"
+  },
+  "cloudfront": {
+    "distributionId": "E3TWPOR1TVSU4O",
+    "domain": "d23j17myaap3b.cloudfront.net"
+  },
+  "build": {
+    "sourceDir": "dist",
+    "cacheControl": {
+      "html": "no-cache",
+      "css": "max-age=31536000",
+      "js": "max-age=31536000",
+      "assets": "max-age=31536000"
+    }
+  }
+}

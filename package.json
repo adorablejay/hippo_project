@@ -8,14 +8,18 @@
     "dev:client": "vite",
     "dev:server": "nodemon --watch server --exec ts-node server/index.ts",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:s3": "npm run build && aws s3 sync dist/ s3://your-actual-bucket-name-here --delete",
+    "deploy:cloudfront": "npm run deploy:s3 && aws cloudfront create-invalidation --distribution-id E1234567890ABCD --paths \"/*\"",
+    "deploy": "node deploy.js"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudfront": "^3.0.0",
+    "@aws-sdk/client-s3": "^3.0.0",
     "axios": "^1.11.0",
     "cheerio": "^1.1.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "firebase": "^12.1.0",
     "lucide-react": "^0.395.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

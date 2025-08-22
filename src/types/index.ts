@@ -1,4 +1,15 @@
 // types/index.ts
+
+// 환경변수 타입 정의
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string;
+  readonly VITE_APP_ENV: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 export type BoardKey = "notice" | "free" | "jobs" | "reviews" | "counsel";
 
 export const BOARD_LIST: { key: BoardKey; label: string }[] = [
