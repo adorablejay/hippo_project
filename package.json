@@ -14,8 +14,10 @@
     "deploy": "node deploy.js"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^6.11.2",
     "@aws-sdk/client-cloudfront": "^3.0.0",
     "@aws-sdk/client-s3": "^3.0.0",
+    "aws-amplify": "^6.15.5",
     "axios": "^1.11.0",
     "cheerio": "^1.1.2",
     "cors": "^2.8.5",

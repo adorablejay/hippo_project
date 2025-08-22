@@ -1,9 +1,22 @@
 // types/index.ts
 
-// 환경변수 타입 정의
+// 전역 환경변수 타입 선언
+declare global {
+  const __API_URL__: string;
+  const __APP_ENV__: string;
+  const __COGNITO_USER_POOL_ID__: string;
+  const __COGNITO_CLIENT_ID__: string;
+  const __COGNITO_DOMAIN__: string;
+}
+
+// 환경변수 타입 정의 (기존 방식)
 interface ImportMetaEnv {
   readonly VITE_API_URL: string;
   readonly VITE_APP_ENV: string;
+  readonly VITE_COGNITO_USER_POOL_ID: string;
+  readonly VITE_COGNITO_CLIENT_ID: string;
+  readonly VITE_COGNITO_REGION: string;
+  readonly VITE_COGNITO_DOMAIN: string;
 }
 
 interface ImportMeta {

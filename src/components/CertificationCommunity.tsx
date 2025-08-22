@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { useAuth } from "../hooks/useAuth";
 import {
   ChevronDown,
   Search,
@@ -24,6 +25,82 @@ const marqueeStyle = `
 
 // 게시판(드롭다운) 카테고리
 type BoardKey = "notice" | "free" | "jobs" | "reviews" | "counsel";
+
+// AuthStatus 컴포넌트
+const AuthStatus = () => {
+  const { isAuthenticated, user, signIn, signOut } = useAuth();
+
+  const handleLogin = async () => {
+    try {
+      // 간단한 테스트용 로그인 (실제로는 Cognito 호출)
+      await signIn('testuser', 'password123');
+    } catch (error) {
+      console.error('로그인 실패:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    }
+  };
+
+  // API 테스트 함수들
+  const handleTestAPI = async () => {
+    const { testAPI } = await import('../api/client');
+    
+    // 1. 인증 없이 테스트
+    await testAPI.testWithoutAuth();
+    
+    // 2. CORS 테스트
+    await testAPI.testCORS();
+    
+    // 3. 인증과 함께 테스트 (로그인된 경우에만)
+    if (isAuthenticated) {
+      await testAPI.testWithAuth();
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <User className="text-gray-600 hover:text-gray-900 cursor-pointer" size={20} />
+      {isAuthenticated ? (
+        <>
+          <span className="text-gray-700 text-sm">{user?.username || '사용자'}</span>
+          <button 
+            onClick={handleLogout} 
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded text-sm hover:bg-gray-300"
+          >
+            로그아웃
+          </button>
+          <button 
+            onClick={handleTestAPI} 
+            className="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700"
+          >
+            API 테스트
+          </button>
+        </>
+      ) : (
+        <>
+          <button 
+            onClick={handleLogin} 
+            className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700"
+          >
+            로그인
+          </button>
+          <button 
+            onClick={handleTestAPI} 
+            className="bg-green-600 text-white px-4 py-2 rounded text-sm hover:bg-green-700"
+          >
+            API 테스트
+          </button>
+        </>
+      )}
+    </div>
+  );
+};
 
 // TodayTomorrowJobsCard 컴포넌트
 const TodayTomorrowJobsCard = ({ limit = 10, className = "" }) => {
@@ -1429,21 +1506,7 @@ const CertificationCommunity = () => {
                 />
               </div>
               <Bell className="text-gray-600 hover:text-gray-900 cursor-pointer" size={20} />
-              <div className="flex items-center gap-2">
-                <User className="text-gray-600 hover:text-gray-900 cursor-pointer" size={20} />
-                {isLoggedIn ? (
-                  <>
-                    <span className="text-gray-700 text-sm">{userId}</span>
-                    <button onClick={handleLogout} className="bg-gray-200 text-gray-800 px-4 py-2 rounded text-sm hover:bg-gray-300">
-                      로그아웃
-                    </button>
-                  </>
-                ) : (
-                  <button onClick={handleLogin} className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">
-                    로그인
-                  </button>
-                )}
-              </div>
+              <AuthStatus />
             </div>
           </div>
         </div>
