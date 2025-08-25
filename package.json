@@ -9,8 +9,8 @@
     "dev:server": "nodemon --watch server --exec ts-node server/index.ts",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy:s3": "npm run build && aws s3 sync dist/ s3://your-actual-bucket-name-here --delete",
-    "deploy:cloudfront": "npm run deploy:s3 && aws cloudfront create-invalidation --distribution-id E1234567890ABCD --paths \"/*\"",
+    "deploy:s3": "aws s3 sync dist/ s3://hippo-project-frontend --delete",
+    "deploy:cloudfront": "aws cloudfront create-invalidation --distribution-id E1FXL8ZNZFQFXQ --paths '/*'",
     "deploy": "node deploy.js"
   },
   "dependencies": {

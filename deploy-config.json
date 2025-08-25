@@ -1,11 +1,11 @@
 {
   "s3": {
-    "bucketName": "hippo1-bucket",
+    "bucketName": "hippo-project-frontend",
     "region": "ap-northeast-2"
   },
   "cloudfront": {
-    "distributionId": "E3TWPOR1TVSU4O",
-    "domain": "d23j17myaap3b.cloudfront.net"
+    "distributionId": "E3BY509ZQVIXNN",
+    "domain": "ddf2cur6rzyxs.cloudfront.net"
   },
   "build": {
     "sourceDir": "dist",

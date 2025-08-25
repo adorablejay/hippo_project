@@ -93,10 +93,10 @@ export const useAuth = () => {
       }
 
       const tokenData = await response.json();
-      console.log('토큰 교환 성공:', tokenData);
+      console.log('토큰 교환 성공');
 
-      // access token 저장
-      localStorage.setItem('authToken', tokenData.access_token);
+      // id_token 저장 (API Gateway Cognito Authorizer에서 사용)
+      localStorage.setItem('authToken', tokenData.id_token);
       
       // 사용자 정보 가져오기
       await getUserInfo(tokenData.access_token);

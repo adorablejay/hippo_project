@@ -4,10 +4,7 @@ import axios from 'axios';
 // 환경변수에서 API URL 가져오기
 const API_BASE_URL = (import.meta as any).env.VITE_API_URL;
 
-console.log('=== API Client 디버깅 ===');
-console.log('API_BASE_URL:', API_BASE_URL);
-console.log('import.meta.env.VITE_API_URL:', (import.meta as any).env.VITE_API_URL);
-console.log('==========================');
+// API Client 초기화 완료
 
 // Axios 인스턴스 생성
 const apiClient = axios.create({
@@ -27,9 +24,6 @@ apiClient.interceptors.request.use(
       
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
-        console.log('API 요청에 토큰 추가:', token.substring(0, 20) + '...');
-      } else {
-        console.log('인증 토큰이 없습니다.');
       }
     } catch (error) {
       // 토큰이 없거나 만료된 경우 (로그인되지 않은 상태)
